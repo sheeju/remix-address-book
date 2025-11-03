@@ -89,3 +89,6 @@ Thumbs.db
 # Temporary folders
 tmp/
 temp/
+
+# Vite temporary files
+vite.config.*.timestamp-*.mjs
