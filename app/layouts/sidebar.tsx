@@ -49,8 +49,11 @@ export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
               name="q"
               // synchronize user's input to component state
               onChange={event => {
+                const isFirstSearch = q === null;
                 setQuery(event.currentTarget.value);
-                submit(event.currentTarget.form);
+                submit(event.currentTarget.form, {
+                  replace: !isFirstSearch,
+                });
               }}
               placeholder="Search"
               type="search"
