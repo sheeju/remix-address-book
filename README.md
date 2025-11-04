@@ -1,29 +1,66 @@
-# Welcome to React Router!
+# React Router Address Book
+
+A contact management application built with React Router v7.
 
 - [React Router Docs](https://reactrouter.com/home)
+
+## Prerequisites
+
+- Node.js >=20.0.0
+- Yarn 4.x (configured with node_modules)
 
 ## Development
 
 From your terminal:
 
 ```sh
-npm run dev
+yarn install  # Install dependencies
+yarn dev      # Start development server
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
+
+## Code Quality & Formatting
+
+This project uses ESLint and Prettier for code quality and consistent formatting:
+
+```sh
+yarn lint       # Check for linting errors
+yarn lint:fix   # Auto-fix linting errors
+yarn format     # Format all files with Prettier
+yarn typecheck  # Run TypeScript type checking
+```
+
+### Code Style
+- **2-space indentation** (configured in Prettier)
+- **LF line endings** (Unix-style)
+- **Single quotes** for strings
+- **Trailing commas** where valid
+
+### VSCode Setup
+The project includes VSCode settings (`.vscode/settings.json`) that automatically:
+- Format code on save with Prettier
+- Fix ESLint errors on save
+- Use 2-space tabs
+- Convert line endings to LF
+- Trim trailing whitespace
+
+**Recommended VSCode Extensions:**
+- ESLint
+- Prettier - Code formatter
 
 ## Deployment
 
 First, build your app for production:
 
 ```sh
-npm run build
+yarn build
 ```
 
 Then run the app in production mode:
 
 ```sh
-npm start
+yarn start
 ```
 
 Now you'll need to pick a host to deploy it to.
