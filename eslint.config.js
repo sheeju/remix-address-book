@@ -7,10 +7,20 @@ import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 
 export default tseslint.config(
+  {
+    ignores: [
+      'node_modules/**',
+      'build/**',
+      'dist/**',
+      '.react-router/**',
+      '**/.react-router/**',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   prettierConfig,
   {
+    files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -27,6 +37,10 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/no-empty-object-type': [
+        'error',
+        { allowObjectTypes: 'always' },
       ],
     },
     settings: {
@@ -45,9 +59,5 @@ export default tseslint.config(
         },
       },
     },
-  },
-  {
-    files: ['**/*.{js,jsx,ts,tsx}'],
-    ignores: ['node_modules/**', 'build/**', 'dist/**', '.react-router/**'],
   }
 );
