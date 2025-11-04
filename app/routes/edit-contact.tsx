@@ -1,12 +1,9 @@
-import { Form, redirect, useNavigate } from "react-router";
-import type { Route } from "./+types/edit-contact";
+import { Form, redirect, useNavigate } from 'react-router';
+import type { Route } from './+types/edit-contact';
 
-import { getContact, updateContact } from "../data";
+import { getContact, updateContact } from '../data';
 
-export async function action({
-  params,
-  request,
-}: Route.ActionArgs) {
+export async function action({ params, request }: Route.ActionArgs) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
   await updateContact(params.contactId, updates);
@@ -16,14 +13,12 @@ export async function action({
 export async function loader({ params }: Route.LoaderArgs) {
   const contact = await getContact(params.contactId);
   if (!contact) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Response('Not Found', { status: 404 });
   }
   return { contact };
 }
 
-export default function EditContact({
-  loaderData,
-}: Route.ComponentProps) {
+export default function EditContact({ loaderData }: Route.ComponentProps) {
   const { contact } = loaderData;
   const navigate = useNavigate();
 
@@ -67,16 +62,12 @@ export default function EditContact({
       </label>
       <label>
         <span>Notes</span>
-        <textarea
-          defaultValue={contact.notes}
-          name="notes"
-          rows={6}
-        />
+        <textarea defaultValue={contact.notes} name="notes" rows={6} />
       </label>
       <p>
         <button type="submit">Save</button>
         <button onClick={() => navigate(-1)} type="button">
-            Cancel
+          Cancel
         </button>
       </p>
     </Form>

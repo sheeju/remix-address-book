@@ -1,21 +1,19 @@
-import { Form } from "react-router";
+import { Form } from 'react-router';
 
-import type { ContactRecord } from "../data";
+import type { ContactRecord } from '../data';
 
-import { getContact } from "../data";
-import type { Route } from "./+types/contact";
+import { getContact } from '../data';
+import type { Route } from './+types/contact';
 
 export async function loader({ params }: Route.LoaderArgs) {
   const contact = await getContact(params.contactId);
   if (!contact) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Response('Not Found', { status: 404 });
   }
   return { contact };
 }
 
-export default function Contact({
-  loaderData,
-}: Route.ComponentProps) {
+export default function Contact({ loaderData }: Route.ComponentProps) {
   const { contact } = loaderData;
 
   return (
@@ -42,9 +40,7 @@ export default function Contact({
 
         {contact.twitter ? (
           <p>
-            <a
-              href={`https://twitter.com/${contact.twitter}`}
-            >
+            <a href={`https://twitter.com/${contact.twitter}`}>
               {contact.twitter}
             </a>
           </p>
@@ -60,9 +56,9 @@ export default function Contact({
           <Form
             action="destroy"
             method="post"
-            onSubmit={(event) => {
+            onSubmit={event => {
               const response = confirm(
-                "Please confirm you want to delete this record.",
+                'Please confirm you want to delete this record.'
               );
               if (!response) {
                 event.preventDefault();
@@ -77,25 +73,17 @@ export default function Contact({
   );
 }
 
-function Favorite({
-  contact,
-}: {
-  contact: Pick<ContactRecord, "favorite">;
-}) {
+function Favorite({ contact }: { contact: Pick<ContactRecord, 'favorite'> }) {
   const favorite = contact.favorite;
 
   return (
     <Form method="post">
       <button
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
+        aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
         name="favorite"
-        value={favorite ? "false" : "true"}
+        value={favorite ? 'false' : 'true'}
       >
-        {favorite ? "★" : "☆"}
+        {favorite ? '★' : '☆'}
       </button>
     </Form>
   );
