@@ -32,13 +32,16 @@ yarn typecheck  # Run TypeScript type checking
 ```
 
 ### Code Style
+
 - **2-space indentation** (configured in Prettier)
 - **LF line endings** (Unix-style)
 - **Single quotes** for strings
 - **Trailing commas** where valid
 
 ### VSCode Setup
+
 The project includes VSCode settings (`.vscode/settings.json`) that automatically:
+
 - Format code on save with Prettier
 - Fix ESLint errors on save
 - Use 2-space tabs
@@ -46,8 +49,37 @@ The project includes VSCode settings (`.vscode/settings.json`) that automaticall
 - Trim trailing whitespace
 
 **Recommended VSCode Extensions:**
+
 - ESLint
 - Prettier - Code formatter
+
+## Testing
+
+This project uses Vitest and Testing Library for unit testing:
+
+```sh
+yarn test         # Run tests in watch mode
+yarn test:run     # Run tests once
+yarn test:coverage # Run tests with coverage report
+yarn test:ui      # Run tests with Vitest UI
+```
+
+### Test Structure
+
+- **Unit tests** for all pages and components
+- **Test files** located in `__tests__` directories next to source files
+- **Test utilities** in `src/test/utils.tsx` for common testing patterns
+- **Happy-DOM** as the test environment for better performance
+
+### Test Coverage
+
+Current test coverage includes:
+
+- ✅ **Root component** - Layout, ErrorBoundary, HydrateFallback
+- ✅ **Sidebar layout** - Contact list, search functionality, navigation
+- ✅ **About page** - Content rendering and navigation
+- ✅ **Home page** - Content and links
+- ✅ **Contact page** - Contact details, favorite functionality, forms
 
 ## Deployment
 
