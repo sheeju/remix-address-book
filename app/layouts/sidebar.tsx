@@ -1,4 +1,11 @@
-import { Form, Link, NavLink, Outlet, useNavigation } from 'react-router';
+import {
+  Form,
+  Link,
+  NavLink,
+  Outlet,
+  useNavigation,
+  useSubmit,
+} from 'react-router';
 
 import { getContacts } from '../data';
 import type { Route } from './+types/sidebar';
@@ -14,6 +21,10 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
   const { contacts, q } = loaderData;
   const navigation = useNavigation();
+  const submit = useSubmit();
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has('q');
   // the query now needs to be kept in state
   const [query, setQuery] = useState(q || '');
 
@@ -33,16 +44,20 @@ export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
           <Form id="search-form" role="search">
             <input
               aria-label="Search contacts"
+              className={searching ? 'loading' : ''}
               id="q"
               name="q"
               // synchronize user's input to component state
-              onChange={event => setQuery(event.currentTarget.value)}
+              onChange={event => {
+                setQuery(event.currentTarget.value);
+                submit(event.currentTarget.form);
+              }}
               placeholder="Search"
               type="search"
               // switched to `value` from `defaultValue`
               value={query}
             />
-            <div aria-hidden hidden={true} id="search-spinner" />
+            <div aria-hidden hidden={!searching} id="search-spinner" />
           </Form>
           <Form method="post">
             <button type="submit">New</button>
@@ -79,7 +94,9 @@ export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
         </nav>
       </div>
       <div
-        className={navigation.state === 'loading' ? 'loading' : ''}
+        className={
+          navigation.state === 'loading' && !searching ? 'loading' : ''
+        }
         id="detail"
       >
         <Outlet />
